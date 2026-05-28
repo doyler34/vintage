@@ -8,22 +8,22 @@ const categories = [
   {
     name: "VINTAGE\nJACKETS",
     href: "#",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=85",
+    image: "/images/interior-wall.jpg",
   },
   {
     name: "VINTAGE\nTEES",
     href: "#",
-    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=800&q=85",
+    image: "/images/interior-tee.jpg",
   },
   {
-    name: "SWEATS",
+    name: "SWEATS &\nFLEECE",
     href: "#",
-    image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&q=85",
+    image: "/images/interior-pennants.jpg",
   },
   {
-    name: "BOTTOMS",
+    name: "HATS &\nACCESSORIES",
     href: "#",
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=800&q=85",
+    image: "/images/storefront.jpg",
   },
 ];
 
@@ -50,7 +50,7 @@ export default function CategoryGrid() {
                 className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 25vw"
               />
-              <div className="absolute inset-0 bg-black/45 group-hover:bg-black/55 transition-colors duration-300" />
+              <div className="absolute inset-0 bg-black/50 group-hover:bg-black/60 transition-colors duration-300" />
               <div className="relative z-10 p-5 w-full">
                 <h3 className="font-display text-[2rem] md:text-[2.4rem] text-white leading-none whitespace-pre-line mb-2">
                   {cat.name}
