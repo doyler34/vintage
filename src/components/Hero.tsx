@@ -78,11 +78,11 @@ export default function Hero() {
           className="relative min-h-[300px] md:min-h-[500px] order-1 md:order-2 overflow-hidden"
         >
           <Image
-            src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=1200&q=90"
-            alt="OnTheMark Vintage — 118 Dunlop St E, Barrie"
+            src="/images/storefront.jpg"
+            alt="On The Mark Vintage — 118 Dunlop St E, Barrie"
             fill
             priority
-            className="object-cover object-center"
+            className="object-cover object-top"
             sizes="(max-width: 768px) 100vw, 50vw"
           />
           {/* Storefront label overlay */}

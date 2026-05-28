@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import PromoBanners from "@/components/PromoBanners";
 import NewArrivals from "@/components/NewArrivals";
 import CategoryGrid from "@/components/CategoryGrid";
+import StoreGallery from "@/components/StoreGallery";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
         <PromoBanners />
         <NewArrivals />
         <CategoryGrid />
+        <StoreGallery />
       </main>
       <Footer />
     </>
