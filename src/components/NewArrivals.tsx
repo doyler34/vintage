@@ -1,173 +1,115 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
     id: 1,
-    name: "Wool Overcoat",
-    origin: "Italy, 1988",
-    price: "€340",
-    image: "https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=800&q=85",
-    tag: "Archive",
+    name: "Harley Davidson Tee",
+    price: "$45.00",
+    image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=85",
   },
   {
     id: 2,
-    name: "Crewneck Sweat",
-    origin: "USA, 1992",
-    price: "€145",
-    image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=800&q=85",
-    tag: "Deadstock",
+    name: "90s Windbreaker",
+    price: "$75.00",
+    image: "https://images.unsplash.com/photo-1544441893-675973e31985?w=600&q=85",
   },
   {
     id: 3,
-    name: "Leather Bomber",
-    origin: "England, 1979",
-    price: "€520",
-    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=800&q=85",
-    tag: "Rare",
+    name: "Vintage Band Tee",
+    price: "$40.00",
+    image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=85",
   },
   {
     id: 4,
-    name: "Silk Trousers",
-    origin: "France, 1985",
-    price: "€195",
-    image: "https://images.unsplash.com/photo-1594938298603-c8148c4b4281?w=800&q=85",
-    tag: "Archive",
+    name: "Mint Fleece",
+    price: "$55.00",
+    image: "https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600&q=85",
   },
   {
     id: 5,
-    name: "Cargo Vest",
-    origin: "Germany, 1996",
-    price: "€165",
-    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=800&q=85",
-    tag: "Reworked",
-  },
-  {
-    id: 6,
-    name: "Denim Chore Coat",
-    origin: "Japan, 1991",
-    price: "€285",
-    image: "https://images.unsplash.com/photo-1543076447-215ad9ba6923?w=800&q=85",
-    tag: "Deadstock",
+    name: "Guinness Rugby",
+    price: "$60.00",
+    image: "https://images.unsplash.com/photo-1562157873-818bc0726f68?w=600&q=85",
   },
 ];
 
-const container = {
-  hidden: {},
-  show: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
-};
+function WishlistIcon({ active, onClick }: { active: boolean; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label="Wishlist"
+      className="absolute top-2 right-2 w-7 h-7 flex items-center justify-center bg-white/80 hover:bg-white transition-colors rounded-sm"
+    >
+      <svg width="14" height="14" viewBox="0 0 24 24" fill={active ? "#111" : "none"} stroke="#111" strokeWidth="2">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+      </svg>
+    </button>
+  );
+}
 
 export default function NewArrivals() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [wishlist, setWishlist] = useState<number[]>([]);
+
+  const toggleWishlist = (id: number) => {
+    setWishlist((prev) => prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]);
+  };
 
   return (
-    <section className="bg-bone py-24 md:py-36">
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-10">
+    <section className="bg-white py-10 md:py-14 border-t border-gray-100">
+      <div className="max-w-screen-xl mx-auto px-4">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12 md:mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="font-display text-3xl md:text-4xl tracking-wide">NEW IN</h2>
+          <Link
+            href="#"
+            className="font-body text-xs font-medium uppercase tracking-widest text-gray-500 hover:text-black transition-colors"
           >
-            <span className="text-label text-muted block mb-3">New Arrivals</span>
-            <h2 className="font-display text-headline font-light text-charcoal italic">
-              Fresh from<br className="md:hidden" /> the archive
-            </h2>
-          </motion.div>
-          <motion.button
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-label text-muted hover:text-charcoal transition-colors duration-300 self-start md:self-auto mb-1"
-          >
-            VIEW ALL →
-          </motion.button>
+            View All →
+          </Link>
         </div>
 
-        {/* Grid */}
-        <motion.div
-          ref={ref}
-          variants={container}
-          initial="hidden"
-          animate={inView ? "show" : "hidden"}
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 lg:gap-8"
-        >
-          {products.map((product, index) => (
+        {/* Product grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          {products.map((product, i) => (
             <motion.div
               key={product.id}
-              variants={item}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
               className="group cursor-pointer"
             >
-              {/* Image container */}
-              <div className="relative overflow-hidden bg-ash mb-4">
-                <div
-                  className={`relative ${index === 0 || index === 3 ? "aspect-[3/4]" : "aspect-[2/3]"}`}
-                >
-                  <Image
-                    src={product.image}
-                    alt={product.name}
-                    fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                    sizes="(max-width: 768px) 50vw, 33vw"
-                  />
-                  {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-charcoal/0 group-hover:bg-charcoal/10 transition-colors duration-500" />
+              {/* Image */}
+              <div className="relative aspect-square bg-gray-100 overflow-hidden mb-3">
+                <Image
+                  src={product.image}
+                  alt={product.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                />
+                <WishlistIcon
+                  active={wishlist.includes(product.id)}
+                  onClick={() => toggleWishlist(product.id)}
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-black text-white text-center font-body text-xs font-semibold uppercase tracking-wider py-2.5 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                  Quick Add
                 </div>
-
-                {/* Tag badge */}
-                <div className="absolute top-3 left-3">
-                  <span className="text-label text-cream bg-charcoal/70 backdrop-blur-sm px-2.5 py-1.5">
-                    {product.tag}
-                  </span>
-                </div>
-
-                {/* Quick add on hover */}
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  whileHover={{ opacity: 1, y: 0 }}
-                  className="absolute bottom-0 left-0 right-0 bg-cream/95 backdrop-blur-sm p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out hidden md:block"
-                >
-                  <button className="w-full text-label text-charcoal hover:text-muted transition-colors duration-200">
-                    QUICK ADD
-                  </button>
-                </motion.div>
               </div>
 
-              {/* Product info */}
-              <div className="flex justify-between items-start gap-2">
-                <div>
-                  <h3 className="font-body text-sm font-medium text-charcoal leading-tight mb-1">
-                    {product.name}
-                  </h3>
-                  <span className="text-label text-warm-grey">{product.origin}</span>
-                </div>
-                <span className="font-display text-lg text-charcoal font-light shrink-0">
-                  {product.price}
-                </span>
-              </div>
+              {/* Info */}
+              <p className="font-body text-xs font-medium text-black leading-snug mb-0.5">
+                {product.name}
+              </p>
+              <p className="font-body text-xs text-gray-600">{product.price}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

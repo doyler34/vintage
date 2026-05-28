@@ -1,125 +1,100 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = ["Shop", "Archive", "About", "Contact"];
+const navLinks = [
+  "Shop All",
+  "New In",
+  "Vintage Tees",
+  "Jackets",
+  "Sweats",
+  "Bottoms",
+  "Accessories",
+  "Sale",
+];
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <>
-      <motion.header
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? "bg-cream/95 backdrop-blur-md border-b border-ash"
-            : "bg-transparent"
-        }`}
-      >
-        <div className="max-w-screen-2xl mx-auto px-6 md:px-10 h-16 md:h-20 flex items-center justify-between">
-          {/* Left nav */}
-          <nav className="hidden md:flex gap-8 items-center">
-            {navLinks.slice(0, 2).map((link) => (
+    <header className="bg-[#111] text-white sticky top-0 z-50">
+      <div className="max-w-screen-xl mx-auto px-4">
+        {/* Main bar */}
+        <div className="flex items-center justify-between h-14">
+          {/* Logo */}
+          <Link href="/" className="font-display text-xl tracking-wider leading-none shrink-0">
+            RELIQUE<br />
+            <span className="text-sm tracking-[0.3em]">VINTAGE</span>
+          </Link>
+
+          {/* Desktop nav links */}
+          <nav className="hidden lg:flex items-center gap-6 mx-8 flex-1 justify-center">
+            {navLinks.map((link) => (
               <Link
                 key={link}
                 href="#"
-                className="text-label text-charcoal hover:text-muted transition-colors duration-300"
+                className="font-body text-xs font-medium uppercase tracking-wider text-gray-300 hover:text-white transition-colors whitespace-nowrap"
               >
                 {link}
               </Link>
             ))}
           </nav>
 
-          {/* Center brand */}
-          <Link
-            href="/"
-            className="font-display text-2xl md:text-3xl font-light tracking-[0.15em] text-charcoal absolute left-1/2 -translate-x-1/2"
-          >
-            RELIQUE
-          </Link>
-
-          {/* Right nav */}
-          <div className="hidden md:flex gap-8 items-center ml-auto">
-            {navLinks.slice(2).map((link) => (
-              <Link
-                key={link}
-                href="#"
-                className="text-label text-charcoal hover:text-muted transition-colors duration-300"
-              >
-                {link}
-              </Link>
-            ))}
-            <button className="text-label text-charcoal hover:text-muted transition-colors duration-300 ml-2">
-              BAG (0)
+          {/* Right icons */}
+          <div className="flex items-center gap-4">
+            <button aria-label="Search" className="text-gray-300 hover:text-white transition-colors">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+              </svg>
             </button>
-          </div>
-
-          {/* Mobile controls */}
-          <div className="flex md:hidden items-center gap-5 ml-auto">
-            <button className="text-label text-charcoal">BAG</button>
+            <button aria-label="Bag" className="text-gray-300 hover:text-white transition-colors">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z" />
+                <line x1="3" x2="21" y1="6" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+            </button>
+            {/* Mobile hamburger */}
             <button
-              onClick={() => setMenuOpen(!menuOpen)}
-              className="flex flex-col gap-1.5 w-6"
-              aria-label="Toggle menu"
+              className="lg:hidden flex flex-col gap-1.5 ml-2"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Menu"
             >
-              <motion.span
-                animate={menuOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-                className="block h-px w-full bg-charcoal origin-center"
-              />
-              <motion.span
-                animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-                className="block h-px w-full bg-charcoal"
-              />
-              <motion.span
-                animate={menuOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-                className="block h-px w-full bg-charcoal origin-center"
-              />
+              <span className={`block w-5 h-px bg-white transition-all ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block w-5 h-px bg-white transition-all ${mobileOpen ? "opacity-0" : ""}`} />
+              <span className={`block w-5 h-px bg-white transition-all ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
             </button>
           </div>
         </div>
-      </motion.header>
+      </div>
 
       {/* Mobile menu */}
       <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="fixed inset-0 z-40 bg-cream flex flex-col items-center justify-center gap-8"
+        {mobileOpen && (
+          <motion.nav
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden overflow-hidden border-t border-white/10"
           >
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08 + 0.1 }}
-              >
+            <div className="flex flex-col px-4 py-4 gap-4">
+              {navLinks.map((link) => (
                 <Link
+                  key={link}
                   href="#"
-                  onClick={() => setMenuOpen(false)}
-                  className="font-display text-headline font-light text-charcoal"
+                  onClick={() => setMobileOpen(false)}
+                  className="font-body text-sm uppercase tracking-wider text-gray-300 hover:text-white transition-colors"
                 >
                   {link}
                 </Link>
-              </motion.div>
-            ))}
-          </motion.div>
+              ))}
+            </div>
+          </motion.nav>
         )}
       </AnimatePresence>
-    </>
+    </header>
   );
 }
