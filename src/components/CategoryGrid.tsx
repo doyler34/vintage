@@ -37,24 +37,25 @@ export default function CategoryGrid() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: i * 0.1 }}
+            transition={{ duration: 0.45, delay: i * 0.08 }}
           >
-            <Link href={cat.href} className="relative flex flex-col items-center justify-end group overflow-hidden aspect-[3/4] block">
+            <Link
+              href={cat.href}
+              className="relative flex flex-col items-start justify-end group overflow-hidden aspect-[3/4] block"
+            >
               <Image
                 src={cat.image}
                 alt={cat.name}
                 fill
-                className="object-cover object-center transition-transform duration-600 group-hover:scale-105"
+                className="object-cover object-center transition-transform duration-700 group-hover:scale-105"
                 sizes="(max-width: 768px) 50vw, 25vw"
               />
-              {/* Dark overlay */}
-              <div className="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors duration-300" />
-              {/* Text */}
+              <div className="absolute inset-0 bg-black/45 group-hover:bg-black/55 transition-colors duration-300" />
               <div className="relative z-10 p-5 w-full">
-                <h3 className="font-display text-3xl md:text-4xl text-white leading-none whitespace-pre-line mb-2">
+                <h3 className="font-display text-[2rem] md:text-[2.4rem] text-white leading-none whitespace-pre-line mb-2">
                   {cat.name}
                 </h3>
-                <span className="font-body text-xs text-white/80 font-medium uppercase tracking-widest group-hover:text-white transition-colors">
+                <span className="font-body text-[10px] font-semibold text-white/70 uppercase tracking-widest group-hover:text-white transition-colors duration-200">
                   Shop Now →
                 </span>
               </div>

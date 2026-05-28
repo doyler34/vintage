@@ -15,8 +15,14 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "RELIQUE VINTAGE — Shop Ethically. Shop Secondhand.",
-  description: "Curated vintage clothing. New drops weekly.",
+  title: "OnTheMark Vintage — Shop Ethically. Shop Secondhand.",
+  description:
+    "Curated vintage clothing, accessories & collectibles in Barrie, Ontario. New drops weekly. Shop in store at 118 Dunlop St E or online on Depop.",
+  openGraph: {
+    title: "OnTheMark Vintage",
+    description: "Curated vintage. New drops weekly. Barrie, Ontario.",
+    siteName: "OnTheMark Vintage",
+  },
 };
 
 export default function RootLayout({
